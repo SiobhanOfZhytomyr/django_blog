@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card text-center" style="width: auto;">
+        {% if post.thumbnail %}
+        <img src="{{ post.thumbnail.url }}" class="card-img-top">
+        {% endif %}
+        {% if is_author %}
+        <div class="card-body">
+            <a class="btn btn-primary" href="{% url 'Core:post-update' slug=post.slug %}">Edit</a>
+            <a class="btn btn-primary" href="{% url 'Core:post-delete' slug=post.slug %}">Delete</a>
+        </div>
+        {% endif %}
+        <div class="card-body">
+          <p class="card-title">{{post.title}}</p>
+          <p class="card-text">{{post.content}}</p>
+        </div>
+        <div class="card-footer">
+            <p class="card-text">Author - {{post.author}}</p>
+            <small class='text-muted'>Created - {{ post.created }}</small>
+            <small class='text-muted'>Last updated - {{ post.updated }}</small>
+        </div>
+      </div>
+
+
+{% endblock content %}
