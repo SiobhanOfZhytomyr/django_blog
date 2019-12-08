@@ -8,7 +8,7 @@ from django.views.generic.base import RedirectView
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.core.exceptions import PermissionDenied
 
 class PostListView(ListView):
     model = Post
@@ -50,10 +50,16 @@ class PostUpdateView(LoginRequiredMixin,UpdateView):
         form.save()
         return redirect(reverse('Core:post-detail', kwargs={'slug': form.instance.slug}))
     
-    def get_queryset(self):
-        qs = super().get_queryset()
-        qs = qs.filter(author=self.request.user)
-        return qs
+    # def get_queryset(self):
+    #     qs = super().get_queryset()
+    #     qs = qs.filter(author=self.request.user)
+    #     return qs
+
+    def get_object(self, queryset=None):
+        obj = super().get_object()
+        if obj.author != self.request.user:
+            raise PermissionDenied
+        return obj
 
 
 class PostDeleteView(LoginRequiredMixin,DeleteView):
@@ -61,10 +67,18 @@ class PostDeleteView(LoginRequiredMixin,DeleteView):
     template_name = "Core/post_delete.html"
     success_url = reverse_lazy('Core:post-list')
 
-    def get_queryset(self):
-        qs = super().get_queryset()
-        qs = qs.filter(author=self.request.user)
-        return qs
+    # def get_queryset(self):
+    #     qs = super().get_queryset()
+    #     qs = qs.filter(author=self.request.user)
+    #     return qs
+
+    def get_object(self, queryset=None):
+        obj = super().get_object()
+        if obj.author != self.request.user:
+            raise PermissionDenied
+        
+        return obj
+
 
 class SearchResultsView(ListView):
     model = Post

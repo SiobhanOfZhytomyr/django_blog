@@ -1,9 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<!-- <header class="masthead" style="background-image: {{ post.thumbnail.url }}">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-heading">
+          <h1>Man must explore, and this is exploration at its greatest</h1>
+          <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
+          <span class="meta">Posted by
+            <a href="#">Start Bootstrap</a>
+            on August 24, 2019</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header> -->
 <div class="card text-center" style="width: auto;">
         {% if post.thumbnail %}
-        <img src="{{ post.thumbnail.url }}" class="card-img-top">
+          <img src="{{ post.thumbnail.url }}" class="card-img-top w-50 h-50 center">
         {% endif %}
         {% if is_author %}
         <div class="card-body">

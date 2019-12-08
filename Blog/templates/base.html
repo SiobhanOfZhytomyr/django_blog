@@ -41,8 +41,9 @@
                   </form>
                 </div>
               </nav>
-
-              <h5>Content</h5>
+              {% block title %}
+              <h5 class="text-center"> Content</h5>
+              {% endblock title %}
               <div class="container-fluid">
                 {% block content %}
                 {% endblock content %}
